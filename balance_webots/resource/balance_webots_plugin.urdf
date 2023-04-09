@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<robot name="Balance">
+    <webots>
+       <!-- Whole Webots-related configuration is placed under the <webots> tag -->
+
+        <!-- The ros2_control implementation is provided as another out-of-the-box plugin. -->
+        <!--plugin type="webots_ros2_control::Ros2Control" /-->
+
+
+        <plugin type="webots_ros2_driver::Ros2IMU">
+            <enabled>true</enabled>
+            <topicName>/imu</topicName>
+            <alwaysOn>true</alwaysOn>
+            <updateRate>1000</updateRate>
+            <frameName>imu_link</frameName>
+            <inertialUnitName>imu</inertialUnitName>
+        </plugin>
+
+        <plugin type="balance_webots.balance_drive.BalanceDrive" />
+
+
+    </webots>
+
+</robot>

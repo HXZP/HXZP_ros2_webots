@@ -1,0 +1,47 @@
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://ghproxy.com/https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://ghproxy.com/https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/appearances/protos/Parquetry.proto"
+EXTERNPROTO "Balance.proto"
+
+WorldInfo {
+  info [
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+  ]
+}
+Viewpoint {
+  orientation -0.08655033520186102 -0.0642239807536523 0.9941751957138137 5.491989639969489
+  position -7.626629876388317 9.16475943617802 2.89366195291749
+}
+Floor {
+  size 20 20
+  tileSize 5 5
+  appearance Parquetry {
+    type "chequered"
+    colorOverride 0.752941 0.74902 0.737255
+  }
+}
+TexturedBackgroundLight {
+  luminosity 1.2
+}
+Balance {
+  translation 0 0 0.2
+  controller "ros"
+}

@@ -1,0 +1,142 @@
+#VRML_SIM R2022b utf8
+# license: Apache License 2.0
+# license url: http://www.apache.org/licenses/LICENSE-2.0
+# This is a proto file for Webots for the Balance
+# Extracted from: /home/hxzp/dev_ws/src/balance_webots/urdf/balance.urdf
+
+PROTO Balance [
+  field  SFVec3f     translation     0 0 0
+  field  SFRotation  rotation        0 0 1 0
+  field  SFString    name            "Balance"  # Is `Robot.name`.
+  field  SFString    controller      "void"     # Is `Robot.controller`.
+  field  MFString    controllerArgs  []         # Is `Robot.controllerArgs`.
+  field  SFString    customData      ""         # Is `Robot.customData`.
+  field  SFBool      supervisor      FALSE      # Is `Robot.supervisor`.
+  field  SFBool      synchronization TRUE       # Is `Robot.synchronization`.
+  field  SFBool      selfCollision   FALSE      # Is `Robot.selfCollision`.
+]
+{
+  Robot {
+    translation IS translation
+    rotation IS rotation
+    controller IS controller
+    controllerArgs IS controllerArgs
+    customData IS customData
+    supervisor IS supervisor
+    synchronization IS synchronization
+    selfCollision IS selfCollision
+    children [
+      Shape {
+        appearance DEF blue PBRAppearance {
+          baseColor 0.500000 0.500000 0.500000
+          roughness 1.000000
+          metalness 0
+        }
+        geometry Box {
+           size 0.420000 0.360000 0.150000
+        }
+      }
+      HingeJoint {
+        jointParameters HingeJointParameters {
+          axis -1.000000 0.000000 0.000046
+          anchor 0.240000 0.000000 -0.100000
+        }
+        device [
+          RotationalMotor {
+            name "right_joint"
+            maxTorque 10000
+          }
+          PositionSensor {
+            name "right_joint_sensor"
+          }
+        ]
+        endPoint Solid {
+          translation 0.240000 0.000000 -0.100000
+          rotation 0.000000 -1.000000 0.000000 1.570750
+          children [
+            Shape {
+              appearance DEF white PBRAppearance {
+                baseColor 0.500000 0.500000 0.500000
+                roughness 1.000000
+                metalness 0
+              }
+              geometry Cylinder {
+                radius 0.1
+                height 0.06
+              }
+            }
+          ]
+          name "right_wheel"
+          boundingObject Cylinder {
+            radius 0.1
+            height 0.06
+          }
+          physics Physics {
+            density -1
+            mass 0.980000
+            centerOfMass [ 0.000000 0.000000 0.000000 ]
+            inertiaMatrix [
+              2.744000e-03 2.744000e-03 4.900000e-03
+              0.000000e+00 0.000000e+00 0.000000e+00
+            ]
+          }
+        }
+      }
+      HingeJoint {
+        jointParameters HingeJointParameters {
+          axis -1.000000 0.000000 0.000046
+          anchor -0.240000 0.000000 -0.100000
+        }
+        device [
+          RotationalMotor {
+            name "left_joint"
+            maxTorque 10000
+          }
+          PositionSensor {
+            name "left_joint_sensor"
+          }
+        ]
+        endPoint Solid {
+          translation -0.240000 0.000000 -0.100000
+          rotation 0.000000 -1.000000 0.000000 1.570750
+          children [
+            Shape {
+              appearance USE white
+              geometry Cylinder {
+                radius 0.1
+                height 0.06
+              }
+            }
+          ]
+          name "left_wheel"
+          boundingObject Cylinder {
+            radius 0.1
+            height 0.06
+          }
+          physics Physics {
+            density -1
+            mass 0.980000
+            centerOfMass [ 0.000000 0.000000 0.000000 ]
+            inertiaMatrix [
+              2.744000e-03 2.744000e-03 4.900000e-03
+              0.000000e+00 0.000000e+00 0.000000e+00
+            ]
+          }
+        }
+      }
+    ]
+    name IS name
+    boundingObject Box {
+       size 0.420000 0.360000 0.150000
+    }
+    physics Physics {
+      density -1
+      mass 5.550000
+      centerOfMass [ 0.000000 0.000000 0.000000 ]
+      inertiaMatrix [
+        9.199125e-02 9.199125e-02 9.199125e-02
+        0.000000e+00 0.000000e+00 0.000000e+00
+      ]
+    }
+  }
+}

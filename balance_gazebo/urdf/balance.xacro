@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="balance">
+
+<xacro:property name="wheel_mass" value="0.98" />
+<xacro:property name="wheel_radius" value="0.1" />
+<xacro:property name="wheel_length" value="0.06" />
+
+<xacro:property name="chassis_mass" value="5.55" />
+<xacro:property name="chassis_L" value="0.42" />
+<xacro:property name="chassis_W" value="0.36" />
+<xacro:property name="chassis_H" value="0.15" />
+
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <link name="world" />
+  <joint name="world_joint" type="planar">
+    <parent link="world" />
+    <child link="base_link" />
+  </joint>
+
+  
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="${chassis_L} ${chassis_W} ${chassis_H}"/>
+      </geometry>
+      <material name="blue"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${chassis_L} ${chassis_W} ${chassis_H}"/>
+      </geometry>
+    </collision>
+    <inertial>  
+      <mass value="${chassis_mass}"/>  
+      <inertia ixx="${chassis_mass/12*(chassis_L*chassis_L+chassis_H*chassis_H)}" ixy="0.0" ixz="0.0" 
+               iyy="${chassis_mass/12*(chassis_L*chassis_L+chassis_H*chassis_H)}" iyz="0.0" 
+               izz="${chassis_mass/12*(chassis_L*chassis_L+chassis_H*chassis_H)}"/>
+    </inertial>
+  </link>
+  
+<xacro:macro name="wheel" params="direction reflect">
+  <link name="${direction}_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+      </geometry>
+    </collision>
+    <inertial>  
+      <mass value="${wheel_mass}"/>  
+      <inertia ixx="${wheel_mass/12*(3*wheel_radius*wheel_radius+wheel_length*wheel_length)}" ixy="0.0" ixz="0.0"          
+               iyy="${wheel_mass/12*(3*wheel_radius*wheel_radius+wheel_length*wheel_length)}" iyz="0.0" 
+               izz="${wheel_mass/2*wheel_radius*wheel_radius}"/>
+    </inertial>
+  </link>
+  
+  <joint name="${direction}_joint" type="continuous">
+    <origin rpy="0 -1.57075 0" xyz="${reflect*(chassis_L+wheel_length)/2} 0 -${wheel_radius}"/>
+    <axis xyz="0 0 1"/>
+    <parent link="base_link"/>
+    <child link="${direction}_wheel"/>
+  </joint>  
+  
+</xacro:macro>
+
+<xacro:wheel direction="right" reflect="1" />
+<xacro:wheel direction="left" reflect="-1" />
+
+
+
+
+
+</robot>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

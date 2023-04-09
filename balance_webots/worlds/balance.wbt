@@ -1,0 +1,150 @@
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://ghproxy.com/https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://ghproxy.com/https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/RectangleArena.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.18767023890402357 -0.06132789020288422 0.9803156488157118 3.761653640586179
+  position 2.257910809162836 1.771945050607172 1.597861700826321
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 10 10
+}
+
+
+
+Robot {
+  
+  name "Balance"
+  controller "<extern>"
+  
+  translation 0 0 0.2
+  children [
+    Shape {
+      appearance DEF blue PBRAppearance {
+        baseColor 0.384314 0.627451 0.917647
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.42 0.36 0.15
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis -1 0 0
+        anchor 0.24 0 -0.1
+      }
+      device [
+        RotationalMotor {
+          name "right_joint"
+          maxTorque 5
+        }
+        PositionSensor {
+          name "right_joint_sensor"
+        }
+      ]
+      endPoint Solid {
+        translation 0.24 0 -0.1
+        rotation 3.8512018224472844e-26 -0.9999999999999999 7.311482115756234e-26 1.5707499999999996
+        children [
+          Shape {
+            appearance DEF white PBRAppearance {
+              baseColor 0.5 0.5 0.5
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.06
+              radius 0.1
+            }
+          }
+        ]
+        name "right_wheel"
+        boundingObject Cylinder {
+          height 0.06
+          radius 0.1
+        }
+        physics Physics {
+          density -1
+          mass 0.98
+          centerOfMass [
+            0 0 0
+          ]
+          inertiaMatrix [
+            0.002744 0.002744 0.0049
+            0 0 0
+          ]
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis -1 0 0
+        anchor -0.24 0 -0.1
+      }
+      device [
+        RotationalMotor {
+          name "left_joint"
+          maxTorque 5
+        }
+        PositionSensor {
+          name "left_joint_sensor"
+        }
+      ]
+      endPoint Solid {
+        translation -0.24 0 -0.1
+        rotation -7.311482115756234e-26 -0.9999999999999999 0 1.5707499999999996
+        children [
+          Shape {
+            appearance USE white
+            geometry Cylinder {
+              height 0.06
+              radius 0.1
+            }
+          }
+        ]
+        name "left_wheel"
+        boundingObject Cylinder {
+          height 0.06
+          radius 0.1
+        }
+        physics Physics {
+          density -1
+          mass 0.98
+          centerOfMass [
+            0 0 0
+          ]
+          inertiaMatrix [
+            0.002744 0.002744 0.0049
+            0 0 0
+          ]
+        }
+      }
+    }
+    InertialUnit {
+      rotation 0 1 0 0
+      name "imu"
+    }
+  ]
+
+  boundingObject Box {
+    size 0.42 0.36 0.15
+  }
+  physics Physics {
+    density -1
+    mass 5.55
+    centerOfMass [
+      0 0 0
+    ]
+    inertiaMatrix [
+      0.09199125 0.09199125 0.09199125
+      0 0 0
+    ]
+  }
+  
+}
